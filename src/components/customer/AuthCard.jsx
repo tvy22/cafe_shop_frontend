@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function AuthCard() {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -9,26 +10,34 @@ export default function AuthCard() {
   const [agreeTerms, setAgreeTerms] = useState(false);
 
   return (
-    <div className="flex min-h-screen md:h-screen w-full items-center justify-center bg-bg-primary px-4 py-4 sm:px-6 font-sans">
+    <div className="relative flex min-h-screen w-full items-center justify-center bg-bg-primary px-4 py-16 font-sans sm:px-6 sm:py-20">
+      <Link
+        to="/"
+        className="absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-full border border-accent bg-surface/90 px-4 py-2 text-sm font-semibold text-text-primary shadow-sm transition-colors hover:bg-accent/30 sm:left-6 sm:top-6"
+      >
+        <ArrowLeft size={16} aria-hidden="true" />
+        Back to website
+      </Link>
       {/* Main Split Container Card */}
-      <div className="mx-auto flex w-full max-w-4xl max-h-[92vh] overflow-hidden rounded-3xl bg-surface p-5 sm:p-6 shadow-xl border border-accent/40 md:p-7">
-        <div className="grid w-full grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8">
+      <div className="mx-auto w-full max-w-4xl">
+      <div className="mx-auto flex w-full overflow-hidden rounded-2xl border border-accent/40 bg-surface p-4 shadow-xl sm:p-5 md:p-6">
+        <div className="grid w-full grid-cols-1 items-center gap-5 md:grid-cols-2 md:gap-7">
           
           {/* Left Column: Authentic RUPP Cafe Form UI */}
-          <div className="flex flex-col justify-center p-4 sm:p-6">
+          <div className="flex flex-col justify-center p-2 sm:p-3">
             {/* Header Logo & Brand */}
             <div className="flex flex-col items-center text-center">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary font-bold text-text-primary shadow-sm">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary font-bold text-surface shadow-sm">
                 R
               </div>
-              <h1 className="mt-2 text-2xl font-bold text-text-primary">RUPP Cafe</h1>
+              <h1 className="mt-2 text-xl font-bold text-text-primary">RUPP Cafe</h1>
               <p className="mt-0.5 text-xs font-medium text-secondary">
                 Your Daily Ritual Starts Here
               </p>
             </div>
 
             {/* Login / Create Account Toggle */}
-            <div className="mt-4 flex rounded-xl bg-accent/40 p-1">
+            <div className="mt-3 flex rounded-lg bg-accent/40 p-1">
               <button
                 type="button"
                 onClick={() => setIsSignIn(true)}
@@ -57,7 +66,7 @@ export default function AuthCard() {
             <motion.form 
               layout 
               transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="mt-4 space-y-3" 
+              className="mt-3 space-y-2.5"
               onSubmit={(e) => e.preventDefault()}
             >
               {/* Email Input */}
@@ -68,7 +77,7 @@ export default function AuthCard() {
                 <input
                   type="email"
                   placeholder="name@example.com"
-                  className="w-full rounded-xl border border-accent/80 bg-surface px-3.5 py-2 text-xs text-text-primary placeholder-text-primary/30 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full rounded-lg border border-accent/80 bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-primary/30 transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               </div>
 
@@ -96,7 +105,7 @@ export default function AuthCard() {
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
-                    className="w-full rounded-xl border border-accent/80 bg-surface px-3.5 py-2 text-xs text-text-primary placeholder-text-primary/30 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors pr-10"
+                    className="w-full rounded-lg border border-accent/80 bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-primary/30 transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary pr-10"
                   />
                   <button
                     type="button"
@@ -125,7 +134,7 @@ export default function AuthCard() {
                       <input
                         type={showConfirmPassword ? "text" : "password"}
                         placeholder="••••••••"
-                        className="w-full rounded-xl border border-accent/80 bg-surface px-3.5 py-2 text-xs text-text-primary placeholder-text-primary/30 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors pr-10"
+                        className="w-full rounded-lg border border-accent/80 bg-surface px-3 py-2 text-sm text-text-primary placeholder-text-primary/30 transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary pr-10"
                       />
                       <button
                         type="button"
@@ -175,20 +184,20 @@ export default function AuthCard() {
               {/* Main Submit Button */}
               <button
                 type="submit"
-                className="w-full rounded-full bg-primary py-2.5 text-xs font-semibold text-text-primary shadow-sm transition-colors hover:bg-primary/90 cursor-pointer mt-1"
+                className="mt-1 w-full cursor-pointer rounded-lg bg-primary py-2.5 text-sm font-semibold text-surface shadow-sm transition-colors hover:bg-primary/90"
               >
                 {isSignIn ? "Login" : "Create Account"}
               </button>
             </motion.form>
 
             {/* Divider */}
-            <div className="my-3 border-t border-accent/60" />
+            <div className="my-2.5 border-t border-accent/60" />
 
             {/* Social Login Buttons */}
             <div className="space-y-2">
               <button
                 type="button"
-                className="flex w-full items-center justify-center gap-2 rounded-full border border-accent bg-surface py-2 text-xs font-medium text-text-primary transition-colors hover:bg-accent/20 cursor-pointer"
+                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-accent bg-surface py-2.5 text-sm font-medium text-text-primary transition-colors hover:bg-accent/20"
               >
                 <svg className="h-4 w-4" viewBox="0 0 24 24">
                   <path
@@ -213,7 +222,7 @@ export default function AuthCard() {
 
               <button
                 type="button"
-                className="flex w-full items-center justify-center gap-2 rounded-full border border-accent bg-surface py-2 text-xs font-medium text-text-primary transition-colors hover:bg-accent/20 cursor-pointer"
+                className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-accent bg-surface py-2.5 text-sm font-medium text-text-primary transition-colors hover:bg-accent/20"
               >
                 <svg className="h-4 w-4 fill-current text-text-primary" viewBox="0 0 24 24">
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.85c.62-.75 1.04-1.8 0.93-2.85-.9.04-2 .6-2.63 1.34-.56.65-1.05 1.72-.92 2.74 1.01.08 2.05-.48 2.62-1.23z" />
@@ -224,7 +233,7 @@ export default function AuthCard() {
           </div>
 
           {/* Right Column: Aesthetic Cafe Image */}
-          <div className="hidden md:block h-full min-h-[460px]">
+          <div className="hidden h-full min-h-[400px] md:block">
             <div className="relative h-full w-full overflow-hidden rounded-2xl">
               <img
                 src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=85"
@@ -243,6 +252,7 @@ export default function AuthCard() {
           </div>
 
         </div>
+      </div>
       </div>
     </div>
   );

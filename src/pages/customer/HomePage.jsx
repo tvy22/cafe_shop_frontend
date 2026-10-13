@@ -1,9 +1,9 @@
+import FirstPage from '../../components/customer/firstpage';
 
-
-export default function HomePage() {
-    return (
-        <>
-            <h1>HomePage</h1>
-        </>
-    )
+export default function Homepage() {
+  return (
+    <main>
+      <FirstPage />
+    </main>
+  );
 }
