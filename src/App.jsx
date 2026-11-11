@@ -8,8 +8,8 @@ export default function App() {
     <BrowserRouter>
       <CartProvider>
         <Routes>
+          <Route path="/dashboard/*" element={<DashboardRoutes/>}/>
           <Route path="/*" element={<CustomerRoutes/>}/>
-          <Route path="/dashboard/" element={<DashboardRoutes/>}/>
         </Routes>
       </CartProvider>
     </BrowserRouter>
