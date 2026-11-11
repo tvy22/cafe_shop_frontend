@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+
+/* Dashboard Default Theme (Warm Matcha/Cream) */
+:root {
+  --color-milk: #F3F0E8;      /* Background */
+  --color-matcha: #ABBF9B;    /* Primary Accent */
+  --color-caramel: #A2663C;   /* Secondary Accent */
+  --color-cream: #E4CDB0;     /* Cards/Borders */
+  --color-coffee: #3F1D0E;    /* Main Text */
+  --color-white: #FFFFFF;     /* Containger BG */
+}
+
+@theme {
+  /* Font Family */
+  --font-sans: "Poppins", sans-serif;
+
+  /* Colors */
+  --color-milk: var(--color-milk);
+  --color-matcha: var(--color-matcha);
+  --color-caramel: var(--color-caramel);
+  --color-cream: var(--color-cream);
+  --color-coffee: var(--color-coffee);
+  --color-white: var(--color-white);
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Custom Typography Sizes & Line Heights */
+  --text-h1: 36px;
+  --text-h1--line-height: 44px;
+
+  --text-h2: 24px;
+  --text-h2--line-height: 32px;
+
+  --text-h3: 18px;
+  --text-h3--line-height: 24px;
+
+  --text-product: 16px;
+  --text-product--line-height: 22px;
+
+  --text-badge: 15px;
+  --text-badge--line-height: 20px;
+
+  --text-body: 14px;
+  --text-body--line-height: 22px;
+
+  --text-table-header: 13px;
+  --text-table-header--line-height: 18px;
+
+  --text-table-data: 13px;
+  --text-table-data--line-height: 18px;
+
+  --text-meta: 12px;
+  --text-meta--line-height: 16px;
+
+  /* Spacing Grid System */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+
+  /* Border Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+
+  /* Custom Shadows */
+  /* --shadow-card: 0px 4px 16px rgba(63, 29, 14, 0.06);
+  --shadow-card-hover: 0px 8px 24px rgba(63, 29, 14, 0.10); */
+
+  --shadow-card: 0px 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0px 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Global Defaults */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-milk);
+  color: var(--color-coffee);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
