@@ -1,23 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DashboardLayout from "./DashboardLayout";
-import { ArrowLeft, Camera, Trash2, HelpCircle, Check } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { ArrowLeft, Camera, Trash2, HelpCircle, Check, Plus } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
+import { menuItems as menuData } from "../../data/menuItems";
 
 export default function AddEditDrink() {
   const navigate = useNavigate();
+  const { id } = useParams(); // Capture the dynamic ID from the URL if editing
+  const isEditing = Boolean(id);
 
   // Form state
   const [formData, setFormData] = useState({
-    name: "Matcha Cloud Latte",
+    name: "",
     category: "Teas & Matchas",
-    price: "5.75",
+    price: "",
     status: "Available",
-    description: "Smooth matcha with creamy milk and a cloud of foam.",
+    description: "",
     stock: 100,
     featured: false,
   });
 
-  const [imagePreview, setImagePreview] = useState("https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80");
+  const [imagePreview, setImagePreview] = useState(null);
+
+  // If editing, find the drink from menuData and pre-populate form fields
+  useEffect(() => {
+    if (isEditing) {
+      // Find matching item by id (converting both to string for safety)
+      const drinkToEdit = menuData.find(
+        (item, index) => String(item.id || index + 1) === String(id)
+      );
+
+      if (drinkToEdit) {
+        setFormData({
+          name: drinkToEdit.name || "",
+          category: drinkToEdit.category || "Teas & Matchas",
+          price: drinkToEdit.price ? String(drinkToEdit.price) : "",
+          status: drinkToEdit.status || "Available",
+          description: drinkToEdit.description || "",
+          stock: drinkToEdit.stock ?? 100,
+          featured: drinkToEdit.featured ?? false,
+        });
+        setImagePreview(drinkToEdit.image || null);
+      }
+    }
+  }, [id, isEditing]);
 
   const handleStockChange = (delta) => {
     setFormData((prev) => ({
@@ -45,8 +71,8 @@ export default function AddEditDrink() {
             type="button"
             className="flex items-center gap-2 rounded-pill bg-matcha px-5 py-2.5 text-body font-semibold text-coffee shadow-card transition-all hover:bg-matcha/80 cursor-pointer"
           >
-            <Check size={16} />
-            Update Drink
+            {isEditing ? <Check size={16} /> : <Plus size={16} />}
+            {isEditing ? "Update Drink" : "Add Drink"}
           </button>
         </div>
 
@@ -55,9 +81,13 @@ export default function AddEditDrink() {
           
           {/* Card Header */}
           <div className="border-b border-cream/80 pb-4 mb-6">
-            <h2 className="text-h2 font-bold text-coffee">Add New Drink</h2>
+            <h2 className="text-h2 font-bold text-coffee">
+              {isEditing ? "Edit Drink" : "Add New Drink"}
+            </h2>
             <p className="text-body font-medium text-coffee/60 mt-0.5">
-              Fill in the details below to add a new drink to your menu.
+              {isEditing 
+                ? "Modify the details of your existing menu item below." 
+                : "Fill in the details below to add a new drink to your menu."}
             </p>
           </div>
 
@@ -129,6 +159,10 @@ export default function AddEditDrink() {
                     <option>Espresso & Coffee</option>
                     <option>Cold Brew</option>
                     <option>Smoothies</option>
+                    <option>Pancakes</option>
+                    <option>Ice Cream</option>
+                    <option>Fruit</option>
+                    <option>Juice</option>
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-coffee/60">
                     ▼
@@ -255,8 +289,8 @@ export default function AddEditDrink() {
               type="button"
               className="flex items-center gap-2 rounded-pill bg-matcha px-6 py-2.5 text-body font-semibold text-coffee shadow-card transition-all hover:bg-matcha/80 cursor-pointer"
             >
-              <Check size={16} />
-              Update Drink
+              {isEditing ? <Check size={16} /> : <Plus size={16} />}
+              {isEditing ? "Update Drink" : "Add Drink"}
             </button>
           </div>
 
