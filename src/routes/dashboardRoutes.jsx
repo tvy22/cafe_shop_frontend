@@ -5,6 +5,7 @@ import MenuManagement from '../pages/dashboard/MenuManagement'
 import CategoryManagement from '../pages/dashboard/CategoryManagement'
 import StaffManagement from '../pages/dashboard/StaffManagement'
 import LiveOrderQueue from '../pages/dashboard/LiveOrderQueue'
+import Reports from '../pages/dashboard/Reports'
 
 export default function DashboardRoutes() {
     return (
@@ -15,6 +16,7 @@ export default function DashboardRoutes() {
             <Route path="/categories" element={<CategoryManagement/>}/>
             <Route path="/staff" element={<StaffManagement/>}/>
             <Route path="/live-orders" element={<LiveOrderQueue/>}/>
+            <Route path="/reports" element={<Reports/>}/>
         </Routes>
     )
 }
