@@ -1,40 +1,7 @@
 import React from "react";
+import { orders } from "../../../../data/recentOrders";
 
 export default function RecentOrders() {
-  const orders = [
-    {
-      id: "#ORD-1045",
-      customer: "Dara Serey",
-      items: "1x Matcha Cloud Latte, 1x Butter Croissant",
-      total: "$8.50",
-      status: "Preparing",
-      statusStyle: "bg-caramel/20 text-coffee",
-    },
-    {
-      id: "#ORD-1044",
-      customer: "Bopha Malis",
-      items: "2x Caramel Cold Brew",
-      total: "$9.00",
-      status: "Completed",
-      statusStyle: "bg-matcha text-coffee",
-    },
-    {
-      id: "#ORD-1043",
-      customer: "Sokha Roth",
-      items: "1x Classic Flat White",
-      total: "$4.25",
-      status: "Incoming",
-      statusStyle: "bg-cream text-coffee",
-    },
-    {
-      id: "#ORD-1042",
-      customer: "Narin Kun",
-      items: "1x Iced Lavender Latte, 1x Matcha Cloud Latte",
-      total: "$11.00",
-      status: "Completed",
-      statusStyle: "bg-matcha text-coffee",
-    },
-  ];
 
   return (
     <div className="rounded-3xl bg-white p-6 shadow-card border border-cream/80">
@@ -58,7 +25,7 @@ export default function RecentOrders() {
                 <td className="py-3.5 font-semibold text-coffee/90">
                   {order.customer}
                 </td>
-                <td className="py-3.5 text-coffee/70 font-medium max-w-xs truncate">
+                <td className="py-3.5 text-coffee/70 font-medium truncate">
                   {order.items}
                 </td>
                 <td className="py-3.5 font-bold text-caramel">{order.total}</td>
