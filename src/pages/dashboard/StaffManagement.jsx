@@ -108,12 +108,13 @@ export default function StaffManagement() {
       align: "right",
       render: (row) => (
         <div className="flex items-center justify-end gap-2 text-coffee/70">
-          <button
+          <Link
+            to={`/dashboard/staff/edit/${row.id}`}
             type="button"
             className="p-1.5 hover:text-coffee hover:bg-cream/40 rounded-lg transition-colors cursor-pointer"
           >
             <Edit3 size={16} />
-          </button>
+          </Link>
           <button
             type="button"
             onClick={() => setIsDeleteModalOpen(true)}
@@ -145,13 +146,14 @@ export default function StaffManagement() {
             />
           </div>
 
-          <button
+          <Link
+            to="/dashboard/staff/add"
             type="button"
             className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-pill bg-matcha px-6 py-2.5 text-body font-bold text-coffee shadow-xs hover:bg-matcha/80 transition-colors cursor-pointer shrink-0"
           >
             <Plus size={18} />
             <span>Add New Staff</span>
-          </button>
+          </Link>
         </div>
 
         <DataTable

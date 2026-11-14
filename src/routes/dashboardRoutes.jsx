@@ -8,6 +8,7 @@ import LiveOrderQueue from '../pages/dashboard/LiveOrderQueue'
 import Reports from '../pages/dashboard/Reports'
 import AddEditDrink from '../pages/dashboard/AddEditDrink'
 import AddEditCategory from '../pages/dashboard/AddEditCategory'
+import AddEditStaff from '../pages/dashboard/AddEditStaff'
 
 export default function DashboardRoutes() {
     return (
@@ -23,6 +24,8 @@ export default function DashboardRoutes() {
             <Route path="/menu/edit/:id" element={<AddEditDrink/>}/>
             <Route path="/categories/add" element={<AddEditCategory/>}/>
             <Route path="/categories/edit/:id" element={<AddEditCategory/>}/>
+            <Route path="/staff/add" element={<AddEditStaff/>}/>
+            <Route path="/staff/edit/:id" element={<AddEditStaff/>}/>
         </Routes>
     )
 }
