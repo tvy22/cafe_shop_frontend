@@ -3,6 +3,7 @@ import DashboardLayout from "./DashboardLayout";
 import DataTable from "../../components/common/DataTable";
 import SearchBar from "../../components/common/SearchBar";
 import { Plus, Edit3, Trash2 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { categoryItems } from "../../data/categoryItems";
 import Modal from "../../components/common/Modal";
 
@@ -65,12 +66,13 @@ export default function CategoryManagement() {
       align: "right",
       render: (row) => (
         <div className="flex items-center justify-end gap-2 text-coffee/70">
-          <button
+          <Link
+            to={`/dashboard/categories/edit/${row.id}`}
             type="button"
             className="p-1.5 hover:text-coffee hover:bg-cream/40 rounded-lg transition-colors cursor-pointer"
           >
             <Edit3 size={16} />
-          </button>
+          </Link>
           <button
             type="button"
             onClick={() => setIsDeleteModalOpen(true)}
@@ -97,13 +99,14 @@ export default function CategoryManagement() {
           />
 
           {/* Add Button */}
-          <button
+          <Link
+            to="/dashboard/categories/add"
             type="button"
             className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-pill bg-matcha px-6 py-2.5 text-body font-bold text-coffee shadow-xs hover:bg-matcha/80 transition-colors cursor-pointer shrink-0"
           >
             <Plus size={18} />
             <span>Add Category</span>
-          </button>
+          </Link>
 
         </div>
 
