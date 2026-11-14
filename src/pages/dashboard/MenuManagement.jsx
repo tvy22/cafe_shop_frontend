@@ -6,10 +6,12 @@ import CategoryFilter from "../../components/common/CategoryFilter";
 import { Plus, Edit3, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { menuItems as menuData } from "../../data/menuItems"; 
+import Modal from "../../components/common/Modal";
 
 export default function MenuManagement() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All Categories");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   // Dynamically generate category options from menuData
   const categoryOptions = [
@@ -98,6 +100,7 @@ export default function MenuManagement() {
           </Link>
           <button
             type="button"
+            onClick={() => setIsDeleteModalOpen(true)}
             className="p-1.5 hover:text-caramel hover:bg-caramel/10 rounded-lg transition-colors cursor-pointer"
           >
             <Trash2 size={16} />
@@ -153,6 +156,33 @@ export default function MenuManagement() {
           pageSize={6}
           onPageChange={(page) => console.log("Navigate to page:", page)}
         />
+
+        <Modal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          title="Confirm Delete"
+        >
+          <p className="text-body text-coffee/80">
+            Are you sure you want to delete this drink? This action cannot be undone.
+          </p>
+  
+          {/* Action Buttons */}
+          <div className="mt-6 flex items-center justify-end gap-3">
+            <button
+              type="button"
+              onClick={() => setIsDeleteModalOpen(false)}
+              className="rounded-pill border border-cream bg-white px-4 py-2 text-body font-medium text-coffee transition-colors hover:bg-milk cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="rounded-pill bg-red-500 px-4 py-2 text-body font-semibold text-white transition-colors hover:bg-red-600 cursor-pointer shadow-xs"
+            >
+              Yes, Delete
+            </button>
+          </div>
+        </Modal>
       </div>
     </DashboardLayout>
   );
