@@ -5,6 +5,10 @@ import MenuManagement from '../pages/dashboard/MenuManagement'
 import CategoryManagement from '../pages/dashboard/CategoryManagement'
 import StaffManagement from '../pages/dashboard/StaffManagement'
 import LiveOrderQueue from '../pages/dashboard/LiveOrderQueue'
+import Reports from '../pages/dashboard/Reports'
+import AddEditDrink from '../pages/dashboard/AddEditDrink'
+import AddEditCategory from '../pages/dashboard/AddEditCategory'
+import AddEditStaff from '../pages/dashboard/AddEditStaff'
 
 export default function DashboardRoutes() {
     return (
@@ -15,6 +19,13 @@ export default function DashboardRoutes() {
             <Route path="/categories" element={<CategoryManagement/>}/>
             <Route path="/staff" element={<StaffManagement/>}/>
             <Route path="/live-orders" element={<LiveOrderQueue/>}/>
+            <Route path="/reports" element={<Reports/>}/>
+            <Route path="/menu/add" element={<AddEditDrink/>}/>
+            <Route path="/menu/edit/:id" element={<AddEditDrink/>}/>
+            <Route path="/categories/add" element={<AddEditCategory/>}/>
+            <Route path="/categories/edit/:id" element={<AddEditCategory/>}/>
+            <Route path="/staff/add" element={<AddEditStaff/>}/>
+            <Route path="/staff/edit/:id" element={<AddEditStaff/>}/>
         </Routes>
     )
 }

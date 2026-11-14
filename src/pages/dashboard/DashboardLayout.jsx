@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../../../src/dashboard.css"; 
 import { NavLink, useLocation } from "react-router"; 
+import Modal from "../../components/common/Modal";
 import { 
   LayoutDashboard, 
   ShoppingBag, 
@@ -18,6 +19,7 @@ import {
 export default function DashboardLayout({ title, children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navItems = [
     { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
@@ -47,7 +49,7 @@ export default function DashboardLayout({ title, children }) {
         />
       )}
 
-      {/* Sidebar (Fixed / Non-scrollable viewport fit) */}
+      {/* Sidebar */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col justify-between border-r border-cream/80 bg-white p-6 transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -108,6 +110,7 @@ export default function DashboardLayout({ title, children }) {
         <div className="border-t border-cream/80 pt-4">
           <button
             type="button"
+            onClick={() => setIsModalOpen(true)}
             className="flex w-full items-center gap-3 rounded-2xl bg-cream/30 px-4 py-3 text-body font-semibold text-coffee hover:bg-caramel/10 hover:text-caramel transition-colors cursor-pointer"
           >
             <LogOut size={18} />
@@ -120,7 +123,6 @@ export default function DashboardLayout({ title, children }) {
       <div className="flex flex-1 flex-col overflow-hidden bg-milk">
         {/* Topbar (Sticky header) */}
         <header className="flex h-20 items-center justify-between border-b border-cream/80 bg-white px-6 lg:px-10">
-          {/* Title & Mobile Toggle */}
           <div className="flex items-center gap-4">
             <button
               type="button"
@@ -132,7 +134,6 @@ export default function DashboardLayout({ title, children }) {
             <h1 className="text-h3 lg:text-h2 font-bold text-coffee">{headerTitle}</h1>
           </div>
 
-          {/* Right Header Controls: Notification + User Profile */}
           <div className="flex items-center gap-4 sm:gap-6">
             <div className="relative shrink-0">
               <button
@@ -167,6 +168,33 @@ export default function DashboardLayout({ title, children }) {
           {children}
         </main>
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Confirm Logout"
+      >
+        <p className="text-body text-coffee/80">
+          Are you sure you want to log out of RUPP Cafe? You will need to log back in to manage orders or access your account.
+        </p>
+
+        {/* Action Buttons */}
+        <div className="mt-6 flex items-center justify-end gap-3">
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(false)}
+            className="rounded-pill border border-cream bg-white px-4 py-2 text-body font-medium text-coffee transition-colors hover:bg-milk cursor-pointer"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="rounded-pill bg-red-500 px-4 py-2 text-body font-semibold text-white transition-colors hover:bg-red-600 cursor-pointer shadow-xs"
+          >
+            Yes, Logout
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }

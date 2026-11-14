@@ -4,10 +4,14 @@ import DataTable from "../../components/common/DataTable";
 import SearchBar from "../../components/common/SearchBar";
 import CategoryFilter from "../../components/common/CategoryFilter";
 import { Plus, Edit3, Trash2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { staffItems } from "../../data/staffItems";
+import Modal from "../../components/common/Modal";
 
 export default function StaffManagement() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All Staff");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const filterOptions = [
     "All Staff",
@@ -17,49 +21,6 @@ export default function StaffManagement() {
     "Male",
     "Active",
     "Inactive",
-  ];
-
-  const staffItems = [
-    {
-      id: 1,
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=250&auto=format&fit=crop",
-      name: "Sovan Malis",
-      email: "sovannmalis@ruppcafe.com",
-      phone: "012 345 678",
-      status: "Active",
-      role: "Manager",
-      gender: "Female",
-    },
-    {
-      id: 2,
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=250&auto=format&fit=crop",
-      name: "Chan Vottey",
-      email: "chanvottey@ruppcafe.com",
-      phone: "016 987 654",
-      status: "Active",
-      role: "Barista",
-      gender: "Male",
-    },
-    {
-      id: 3,
-      image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=250&auto=format&fit=crop",
-      name: "Keo Bopha",
-      email: "keobopha@ruppcafe.com",
-      phone: "092 112 233",
-      status: "Inactive",
-      role: "Barista",
-      gender: "Female",
-    },
-    {
-      id: 4,
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=250&auto=format&fit=crop",
-      name: "Sokha Dara",
-      email: "sokhadara@ruppcafe.com",
-      phone: "077 445 566",
-      status: "Active",
-      role: "Barista",
-      gender: "Male",
-    },
   ];
 
   const filteredData = useMemo(() => {
@@ -147,14 +108,16 @@ export default function StaffManagement() {
       align: "right",
       render: (row) => (
         <div className="flex items-center justify-end gap-2 text-coffee/70">
-          <button
+          <Link
+            to={`/dashboard/staff/edit/${row.id}`}
             type="button"
             className="p-1.5 hover:text-coffee hover:bg-cream/40 rounded-lg transition-colors cursor-pointer"
           >
             <Edit3 size={16} />
-          </button>
+          </Link>
           <button
             type="button"
+            onClick={() => setIsDeleteModalOpen(true)}
             className="p-1.5 hover:text-caramel hover:bg-caramel/10 rounded-lg transition-colors cursor-pointer"
           >
             <Trash2 size={16} />
@@ -183,13 +146,14 @@ export default function StaffManagement() {
             />
           </div>
 
-          <button
+          <Link
+            to="/dashboard/staff/add"
             type="button"
             className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-pill bg-matcha px-6 py-2.5 text-body font-bold text-coffee shadow-xs hover:bg-matcha/80 transition-colors cursor-pointer shrink-0"
           >
             <Plus size={18} />
             <span>Add New Staff</span>
-          </button>
+          </Link>
         </div>
 
         <DataTable
@@ -200,6 +164,33 @@ export default function StaffManagement() {
           pageSize={6}
           onPageChange={(page) => console.log("Navigate to page:", page)}
         />
+
+        <Modal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          title="Confirm Delete"
+        >
+          <p className="text-body text-coffee/80">
+            Are you sure you want to delete this staff? This action cannot be undone.
+          </p>
+  
+          {/* Action Buttons */}
+          <div className="mt-6 flex items-center justify-end gap-3">
+            <button
+              type="button"
+              onClick={() => setIsDeleteModalOpen(false)}
+              className="rounded-pill border border-cream bg-white px-4 py-2 text-body font-medium text-coffee transition-colors hover:bg-milk cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="rounded-pill bg-red-500 px-4 py-2 text-body font-semibold text-white transition-colors hover:bg-red-600 cursor-pointer shadow-xs"
+            >
+              Yes, Delete
+            </button>
+          </div>
+        </Modal>
       </div>
     </DashboardLayout>
   );
