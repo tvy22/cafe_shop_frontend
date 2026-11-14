@@ -4,6 +4,7 @@ import DataTable from "../../components/common/DataTable";
 import SearchBar from "../../components/common/SearchBar";
 import CategoryFilter from "../../components/common/CategoryFilter";
 import { Plus, Search, Edit3, Trash2, ChevronDown } from "lucide-react";
+import {Link} from "react-router-dom";
 
 export default function MenuManagement() {
   const [search, setSearch] = useState("");
@@ -168,13 +169,14 @@ export default function MenuManagement() {
           </div>
 
           {/* Add Button (Far Right on Desktop, 3rd Row on Mobile) */}
-          <button
+          <Link
+            to="/dashboard/menu/add"
             type="button"
             className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-pill bg-matcha px-6 py-2.5 text-body font-bold text-coffee shadow-xs hover:bg-matcha/80 transition-colors cursor-pointer shrink-0"
           >
             <Plus size={18} />
             <span>Add New Drink</span>
-          </button>
+          </Link>
 
         </div>
 
