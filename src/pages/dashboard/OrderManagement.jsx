@@ -6,6 +6,7 @@ import CategoryFilter from "../../components/common/CategoryFilter";
 import SlideDrawer from "../../components/common/SlideDrawer";
 import OrderReceipt from "../../components/order/OrderReceipt";
 import { Eye, Ban } from "lucide-react";
+import { orderItems as orderData } from "../../data/orderItems";
 
 export default function OrderManagement() {
   const [search, setSearch] = useState("");
@@ -21,48 +22,7 @@ export default function OrderManagement() {
     "Takeaway",
   ];
 
-  const [orderItems, setOrderItems] = useState([
-    {
-      id: "ORD-1042",
-      customer: "Sovan Malis",
-      type: "Takeaway",
-      payment: "KHQR",
-      itemsCount: 3,
-      total: "$12.50",
-      status: "Completed",
-      createdAt: "10:42 AM",
-    },
-    {
-      id: "ORD-1043",
-      customer: "Chan Vottey",
-      type: "Dine-in",
-      payment: "Cash",
-      itemsCount: 1,
-      total: "$3.50",
-      status: "Preparing",
-      createdAt: "10:48 AM",
-    },
-    {
-      id: "ORD-1044",
-      customer: "Keo Bopha",
-      type: "Takeaway",
-      payment: "KHQR",
-      itemsCount: 2,
-      total: "$8.00",
-      status: "Cancelled",
-      createdAt: "11:05 AM",
-    },
-    {
-      id: "ORD-1045",
-      customer: "Sokha Dara",
-      type: "Dine-in",
-      payment: "KHQR",
-      itemsCount: 4,
-      total: "$15.00",
-      status: "Completed",
-      createdAt: "11:20 AM",
-    },
-  ]);
+  const [orderItems, setOrderItems] = useState(orderData);
 
   const handleVoidOrder = (orderId) => {
     setOrderItems((prev) =>
