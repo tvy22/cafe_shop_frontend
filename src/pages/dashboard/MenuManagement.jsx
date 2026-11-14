@@ -3,71 +3,36 @@ import DashboardLayout from "./DashboardLayout";
 import DataTable from "../../components/common/DataTable";
 import SearchBar from "../../components/common/SearchBar";
 import CategoryFilter from "../../components/common/CategoryFilter";
-import { Plus, Search, Edit3, Trash2, ChevronDown } from "lucide-react";
-import {Link} from "react-router-dom";
+import { Plus, Edit3, Trash2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { menuItems as menuData } from "../../data/menuItems"; 
 
 export default function MenuManagement() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All Categories");
 
+  // Dynamically generate category options from menuData
   const categoryOptions = [
     "All Categories",
-    "Teas & Matchas",
-    "Cold Brew & Iced",
-    "Espresso & Hot Coffee",
-    "Speciality Coffee",
-  ]
-
-  const menuItems = [
-    {
-      id: 1,
-      image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=150&q=80",
-      name: "Matcha Cloud Latte",
-      category: "Teas & Matchas",
-      price: "$5.75",
-      status: "Available",
-    },
-    {
-      id: 2,
-      image: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=150&q=80",
-      name: "Caramel Cold Brew",
-      category: "Cold Brew & Iced",
-      price: "$4.50",
-      status: "Available",
-    },
-    {
-      id: 3,
-      image: "https://images.unsplash.com/photo-1577968897966-3d4325b36b61?auto=format&fit=crop&w=150&q=80",
-      name: "Classic Flat White",
-      category: "Espresso & Hot Coffee",
-      price: "$4.25",
-      status: "Available",
-    },
-    {
-      id: 4,
-      image: "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=150&q=80",
-      name: "Iced Lavender Latte",
-      category: "Specialty Latte",
-      price: "$5.25",
-      status: "Available",
-    },
-    {
-      id: 5,
-      image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=150&q=80",
-      name: "Espresso Tonic",
-      category: "Cold Brew & Iced",
-      price: "$4.75",
-      status: "Unavailable",
-    },
-    {
-      id: 6,
-      image: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=150&q=80",
-      name: "Ceremonial Hot Matcha",
-      category: "Teas & Matchas",
-      price: "$5.00",
-      status: "Available",
-    },
+    ...new Set(menuData.map((item) => item.category)),
   ];
+
+  // Map menuData items to match table column requirements
+  const menuItems = menuData.map((item, index) => ({
+    id: item.id || index + 1,
+    image: item.image,
+    name: item.name,
+    category: item.category,
+    price: typeof item.price === "number" ? `$${item.price.toFixed(2)}` : item.price,
+    status: item.status || (index % 5 === 0 ? "Unavailable" : "Available"), // Fallback status
+  }));
+
+  // Filter items based on search query and category selection
+  const filteredItems = menuItems.filter((item) => {
+    const matchesSearch = item.name.toLowerCase().includes(search.toLowerCase());
+    const matchesCategory = category === "All Categories" || item.category === category;
+    return matchesSearch && matchesCategory;
+  });
 
   // Defining Menu specific columns
   const columns = [
@@ -125,12 +90,12 @@ export default function MenuManagement() {
       align: "right",
       render: (row) => (
         <div className="flex items-center justify-end gap-2 text-coffee/70">
-          <button
-            type="button"
+          <Link
+            to={`/dashboard/menu/edit/${row.id}`}
             className="p-1.5 hover:text-coffee hover:bg-cream/40 rounded-lg transition-colors cursor-pointer"
           >
             <Edit3 size={16} />
-          </button>
+          </Link>
           <button
             type="button"
             className="p-1.5 hover:text-caramel hover:bg-caramel/10 rounded-lg transition-colors cursor-pointer"
@@ -148,7 +113,7 @@ export default function MenuManagement() {
         {/* Top Control Bar */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 w-full">
           
-          {/* Group Search + Category on Desktop (Left Aligned), Stacked on Mobile */}
+          {/* Group Search + Category */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full sm:w-auto">
             
             {/* Search Input */}
@@ -158,7 +123,7 @@ export default function MenuManagement() {
                 placeholder="Search drinks..."
             />
 
-            {/* Reusable Headless UI Category Filter */}
+            {/* Category Filter */}
             <CategoryFilter
                 value={category}
                 onChange={setCategory}
@@ -168,10 +133,9 @@ export default function MenuManagement() {
 
           </div>
 
-          {/* Add Button (Far Right on Desktop, 3rd Row on Mobile) */}
+          {/* Add Button */}
           <Link
             to="/dashboard/menu/add"
-            type="button"
             className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-pill bg-matcha px-6 py-2.5 text-body font-bold text-coffee shadow-xs hover:bg-matcha/80 transition-colors cursor-pointer shrink-0"
           >
             <Plus size={18} />
@@ -180,11 +144,11 @@ export default function MenuManagement() {
 
         </div>
 
-        {/* Reusable Data Table */}
+        {/* Data Table */}
         <DataTable
           columns={columns}
-          data={menuItems}
-          totalEntries={18}
+          data={filteredItems}
+          totalEntries={filteredItems.length}
           currentPage={1}
           pageSize={6}
           onPageChange={(page) => console.log("Navigate to page:", page)}
